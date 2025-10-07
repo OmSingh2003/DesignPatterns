@@ -6,3 +6,13 @@ type Cache struct {
 	capacity     int
 	maxCapacity  int
 }
+
+func initCache(e EvictionAlgo) *Cache {
+	storage := make(map[string]string)
+	return &Cache{
+		storage:      storage,
+		evictionAlgo: e,
+		capacity:     0,
+		maxCapacity:  2,
+	}
+}
