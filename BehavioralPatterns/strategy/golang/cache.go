@@ -1,4 +1,4 @@
-package golang
+package main
 
 type Cache struct {
 	storage      map[string]string
