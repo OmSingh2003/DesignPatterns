@@ -16,3 +16,20 @@ func initCache(e EvictionAlgo) *Cache {
 		maxCapacity:  2,
 	}
 }
+func (c *Cache) evict() {
+	c.evictionAlgo.evict(c)
+	c.capacity--
+}
+func (c *Cache) setEvictionAlgo(e EvictionAlgo) {
+	c.evictionAlgo = e
+}
+func (c *Cache) add(key, value string) {
+	if c.capacity == c.maxCapacity {
+		c.evict()
+	}
+	c.capacity++
+	c.storage[key] = value
+}
+func (c *Cache) get(key string) {
+	delete(c.storage, key)
+}
