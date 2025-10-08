@@ -11,9 +11,9 @@ private:
   int maxCapacity;
 
 public:
-  Cache(EvictionAlgo *algo, int maxCap) {
-    this->evictionAlgo = algo;
-    this->maxCapacity = maxCap;
+  Cache(EvictionAlgo *e) {
+    this->evictionAlgo = e;
+    this->maxCapacity = 2;
     this->capacity = 0;
   }
 };
