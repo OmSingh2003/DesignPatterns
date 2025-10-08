@@ -1,19 +1,29 @@
-#include <string>
-#include <unordered_map>
-using namespace std;
-class EvictionAlgo;
+#include "Cache.h"
 
-class Cache {
-private:
-  unordered_map<string, string> storage;
-  EvictionAlgo *evictionAlgo;
-  int capacity;
-  int maxCapacity;
+Cache::Cache(EvictionAlgo* algo) {
+    storage = std::map<std::string, std::string>();
+    evictionAlgo = algo;
+    capacity = 0;
+    maxCapacity = 2;
+}
 
-public:
-  Cache(EvictionAlgo *e) {
-    this->evictionAlgo = e;
-    this->maxCapacity = 2;
-    this->capacity = 0;
-  }
-};
+void Cache::setEvictionAlgo(EvictionAlgo* algo) {
+    evictionAlgo = algo;
+}
+
+void Cache::add(std::string key, std::string value) {
+    if (capacity == maxCapacity) {
+        evict();
+    }
+    capacity++;
+    storage[key] = value;
+}
+
+void Cache::evict() {
+    evictionAlgo->evict(this);
+    capacity--;
+}
+
+void Cache::get(std::string key) {
+    storage.erase(key);
+}

@@ -1,4 +1,3 @@
-using namespace std;
 class Cache;
 class EvictionAlgo {
 public:
